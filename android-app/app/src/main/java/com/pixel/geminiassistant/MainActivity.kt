@@ -28,12 +28,12 @@ import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.pixel.geminiassistant.ui.theme.GeminiAssistantTheme
-import com.pixel.geminiassistant.utils.GeminiAssistant
+import com.pixel.geminiassistant.utils.LocalGemmaAssistant
 import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
 
-    private lateinit var geminiAssistant: GeminiAssistant
+    private lateinit var geminiAssistant: LocalGemmaAssistant
     private val messages = mutableStateListOf<ChatMessage>()
     private var isProcessing = mutableStateOf(false)
 
@@ -51,7 +51,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        geminiAssistant = GeminiAssistant(this)
+        geminiAssistant = LocalGemmaAssistant(this)
 
         setContent {
             GeminiAssistantTheme {
@@ -124,14 +124,21 @@ class MainActivity : ComponentActivity() {
                 geminiAssistant.initialize()
                 messages.add(
                     ChatMessage(
-                        text = "👋 Hi! I'm your Gemini file assistant. I can help you browse, search, and organize files on your Pixel 9.\n\nTry asking me:\n• 'List files in Downloads'\n• 'Search for photos in DCIM'\n• 'Create a folder called Work in Documents'\n• 'Organize my Downloads by type'",
+                        text = "👋 Hi! I'm your local file assistant.\n\n" +
+                               "I work 100% offline on your Pixel 9 - no internet needed!\n\n" +
+                               "💡 Try:\n" +
+                               "• 'Show files in Downloads'\n" +
+                               "• 'Search for vacation photos'\n" +
+                               "• 'Create folder Work'\n" +
+                               "• 'Organize Downloads by type'\n\n" +
+                               "Type 'help' anytime for more commands.",
                         isUser = false
                     )
                 )
             } catch (e: Exception) {
                 messages.add(
                     ChatMessage(
-                        text = "⚠️ Error initializing Gemini Nano. Make sure AICore is enabled on your Pixel device.\n\nError: ${e.message}",
+                        text = "⚠️ Error initializing assistant.\n\nError: ${e.message}",
                         isUser = false,
                         isError = true
                     )
@@ -186,6 +193,11 @@ class MainActivity : ComponentActivity() {
                 isProcessing.value = false
             }
         }
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        geminiAssistant.cleanup()
     }
 }
 

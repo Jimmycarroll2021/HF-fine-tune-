@@ -66,14 +66,7 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-android:1.7.3'
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
 
-    // Google AI (Gemini Nano via AICore)
-    implementation 'com.google.ai.client.generativeai:generativeai:0.1.2'
-
-    // JSON parsing
-    implementation 'com.google.code.gson:gson:2.10.1'
-
-    // File system utilities
-    implementation 'androidx.documentfile:documentfile:1.0.1'
+    // No AI dependencies needed - using pattern matching (100% local)
 
     // Testing
     testImplementation 'junit:junit:4.13.2'
