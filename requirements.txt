@@ -1,0 +1,13 @@
+torch
+transformers==4.56.2
+trl==0.22.2
+datasets
+peft
+accelerate
+bitsandbytes
+trackio
+liger-kernel
+sentencepiece
+protobuf
+mamba_ssm==2.2.5
+causal_conv1d==1.5.2
