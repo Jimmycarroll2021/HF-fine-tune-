@@ -35,3 +35,5 @@ checkpoints/
 .env
 venv/
 env/
+# Ignore large model files (download separately)
+*.litertlm

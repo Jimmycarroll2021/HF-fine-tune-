@@ -41,6 +41,11 @@ android {
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.4"
     }
+
+    // Prevent compression of model files in assets
+    aaptOptions {
+        noCompress "litertlm"
+    }
 }
 
 dependencies {
@@ -67,11 +72,12 @@ dependencies {
     implementation 'org.jetbrains.kotlinx:kotlinx-coroutines-core:1.7.3'
 
     // ===== ON-DEVICE AI: LiteRT-LM (Google's Official Edge LLM Framework) =====
-    // LiteRT-LM for on-device inference (Gemma3-1B or Qwen2.5-1.5B)
-    // Model downloaded on first launch from HuggingFace
-    // Note: LiteRT-LM v0.8.0 Kotlin API is in preview, using direct implementation
+    // FunctionGemma-270M model bundled in app/src/main/assets/models/
+    // 272MB model optimized for function calling and mobile actions
+    // 8-bit quantized (q8) with efficient KV cache (ekv1024)
+    // Note: LiteRT-LM v0.8.0 Kotlin API in preview, using pattern matching until ready
 
-    // OkHttp for model downloading
+    // OkHttp dependency (retained for future use)
     implementation 'com.squareup.okhttp3:okhttp:4.12.0'
 
     // Testing
